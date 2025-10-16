@@ -1,0 +1,62 @@
+{
+  "about": "Hello! My name is Reese Shu and I enjoy creating things that live on the internet. ......",
+  "experience": "",
+  "work": "",
+  "contact": "",
+  "skills": [
+    "JavaScript (ES6+)",
+    "TypeScript",
+    "React",
+    "Node.js",
+    "WordPress",
+    "Business Analysis"
+  ],
+  "heroGreeting": "",
+  "heroName": "",
+  "heroSubtitle": "I build things for the business web.",
+  "heroDescription": "",
+  "workProjects": [
+    {
+      "title": "Halcyon Theme",
+      "description": "A minimal, dark blog theme for Ghost. Built with vanilla JavaScript, HTML, and CSS.",
+      "image": "/api/placeholder/600/400",
+      "technologies": [
+        "JavaScript"
+      ],
+      "featured": false,
+      "github": "HTML",
+      "live": "CSS"
+    },
+    {
+      "title": "Spotify Profile",
+      "description": "A web app for visualizing personalized Spotify data. Built with React, Express, and the Spotify Web API.",
+      "image": "/api/placeholder/600/400",
+      "technologies": [
+        "React"
+      ],
+      "featured": false,
+      "github": " Express",
+      "live": " Spotify API"
+    }
+  ],
+  "experienceJobs": [
+    {
+      "title": "Lead Engineer",
+      "company": "Upstatement",
+      "period": "2021 - Present",
+      "description": "Lead a team of engineers in building scalable web applications using React, Node.js, and TypeScript. Mentored junior developers and established coding standards.",
+      "technologies": [
+        "React PostgreSQL"
+      ]
+    },
+    {
+      "title": "Senior Frontend Developer",
+      "company": "Apple",
+      "period": "2019 - 2021",
+      "description": "Developed and maintained high-traffic web applications serving millions of users. Collaborated with design teams to implement pixel-perfect UIs.",
+      "technologies": [
+        "Redux JavaScript"
+      ]
+    }
+  ]
+}
