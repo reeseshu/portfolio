@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveSection } from '@/store/slices/navigationSlice';
 import { RootState } from '@/store/store';
-import { setContent, addWorkProject, updateWorkProject, removeWorkProject } from '@/store/slices/editSlice';
+import { addWorkProject, updateWorkProject, removeWorkProject } from '@/store/slices/editSlice';
 
 const Work = () => {
   const dispatch = useDispatch();
@@ -45,13 +45,6 @@ const Work = () => {
         },
       ];
 
-  const onChangeWork = (value: string) => {
-    dispatch(setContent({ key: 'work', value }));
-    if (projects[0]) {
-      dispatch(updateWorkProject({ index: 0, project: { description: value } }));
-    }
-  };
-
   const onAddProject = () => {
     dispatch(addWorkProject({
       title: 'New Project',
@@ -63,7 +56,7 @@ const Work = () => {
   };
 
   const onUpdateProjectField = (index: number, field: 'title' | 'description' | 'github' | 'live', value: string) => {
-    dispatch(updateWorkProject({ index, project: { [field]: value } } as any));
+    dispatch(updateWorkProject({ index, project: { [field]: value } }));
   };
 
   const onUpdateTech = (index: number, value: string) => {

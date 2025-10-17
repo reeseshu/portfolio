@@ -5,6 +5,38 @@ import path from 'path';
 const dataDir = path.join(process.cwd(), 'src', 'data');
 const dataFile = path.join(dataDir, 'content.json');
 
+interface WorkProject {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  github?: string;
+  live?: string;
+  featured: boolean;
+}
+
+interface ExperienceJob {
+  title: string;
+  company: string;
+  period: string;
+  description: string;
+  technologies: string[];
+}
+
+interface ContentData {
+  about: string;
+  experience: string;
+  work: string;
+  contact: string;
+  skills: string[];
+  heroGreeting: string;
+  heroName: string;
+  heroSubtitle: string;
+  heroDescription: string;
+  workProjects: WorkProject[];
+  experienceJobs: ExperienceJob[];
+}
+
 async function ensureDir() {
   try {
     await fs.mkdir(dataDir, { recursive: true });
@@ -32,7 +64,7 @@ export async function GET() {
       return initial;
     });
     return NextResponse.json(JSON.parse(content));
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: 'Failed to read content' }, { status: 500 });
   }
 }
@@ -55,7 +87,7 @@ export async function POST(request: Request) {
       heroDescription = '',
       workProjects = [],
       experienceJobs = [],
-    } = body as any;
+    } = body as ContentData;
     const data = {
       about,
       experience,
@@ -72,7 +104,7 @@ export async function POST(request: Request) {
     await ensureDir();
     await fs.writeFile(dataFile, JSON.stringify(data, null, 2), 'utf8');
     return NextResponse.json({ ok: true });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: 'Failed to save content' }, { status: 500 });
   }
 }

@@ -87,7 +87,7 @@ const Header = () => {
                       if (typeof window !== 'undefined') {
                         window.location.reload();
                       }
-                    } catch (e) {
+                    } catch {
                       alert('Save failed');
                     }
                   }}

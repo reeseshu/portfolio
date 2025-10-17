@@ -6,7 +6,7 @@ import { ThemeWrapper } from './ThemeWrapper';
 import GTM from './GTM';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { hydrateContent, setAllContent } from '@/store/slices/editSlice';
+import { hydrateContent } from '@/store/slices/editSlice';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

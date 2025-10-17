@@ -4,7 +4,20 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveSection } from '@/store/slices/navigationSlice';
 import { RootState } from '@/store/store';
-import { setContent, addExperienceJob, updateExperienceJob, removeExperienceJob } from '@/store/slices/editSlice';
+import { addExperienceJob, updateExperienceJob, removeExperienceJob } from '@/store/slices/editSlice';
+
+interface ExperienceJob {
+  title: string;
+  company: string;
+  period: string;
+  description: string;
+  technologies: string[];
+}
+
+interface ContentWithExperience {
+  experience: string;
+  experienceJobs: ExperienceJob[];
+}
 
 const Experience = () => {
   const dispatch = useDispatch();
@@ -31,8 +44,8 @@ const Experience = () => {
 
   const { isEditing, content } = useSelector((state: RootState) => state.edit);
 
-  const experiences = (content as any).experienceJobs && (content as any).experienceJobs.length > 0
-    ? (content as any).experienceJobs
+  const experiences = (content as ContentWithExperience).experienceJobs && (content as ContentWithExperience).experienceJobs.length > 0
+    ? (content as ContentWithExperience).experienceJobs
     : [
         {
           title: 'Lead Engineer',
@@ -42,10 +55,6 @@ const Experience = () => {
           technologies: ['React', 'TypeScript', 'Node.js', 'PostgreSQL']
         }
       ];
-
-  const onChangeExp = (value: string) => {
-    dispatch(setContent({ key: 'experience', value }));
-  };
 
   const onAddJob = () => {
     dispatch(addExperienceJob({
@@ -58,7 +67,7 @@ const Experience = () => {
   };
 
   const onUpdateJobField = (index: number, field: 'title' | 'company' | 'period' | 'description', value: string) => {
-    dispatch(updateExperienceJob({ index, job: { [field]: value } } as any));
+    dispatch(updateExperienceJob({ index, job: { [field]: value } }));
   };
 
   const onUpdateJobTech = (index: number, value: string) => {
@@ -81,7 +90,7 @@ const Experience = () => {
         </div>
 
         <div className="space-y-12">
-          {experiences.map((exp: any, index: number) => (
+          {experiences.map((exp: ExperienceJob, index: number) => (
             <div key={index} className="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                 <div>
