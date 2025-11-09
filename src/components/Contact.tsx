@@ -6,6 +6,7 @@ import { setActiveSection } from '@/store/slices/navigationSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { setContent } from '@/store/slices/editSlice';
+import MagneticButton from './MagneticButton';
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const Contact = () => {
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Get In Touch
             </h2>
-            <div className="w-24 h-1 bg-green-500 dark:bg-green-400 mx-auto mb-8"></div>
+            <div className="w-24 h-1 mx-auto mb-8" style={{ backgroundColor: '#0072b1' }}></div>
           </div>
           
           {isEditing ? (
@@ -61,13 +62,19 @@ const Contact = () => {
             </p>
           )}
           
-          <div className="pt-8">
-            <a
-              href="mailto:reese.shu@gmail.com"
-              className="inline-block border border-green-500 dark:border-green-400 text-green-500 dark:text-green-400 px-8 py-4 text-lg font-mono hover:bg-green-500 hover:text-white dark:hover:bg-green-400 dark:hover:text-gray-900 transition-all duration-300 transform hover:scale-105"
+          <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <MagneticButton
+              href="mailto:reeseshu@gmail.com"
+              className="rounded-md"
             >
               Say Hello
-            </a>
+            </MagneticButton>
+            <MagneticButton
+              href="/wave"
+              className="rounded-md"
+            >
+              👋
+            </MagneticButton>
           </div>
         </div>
       </div>

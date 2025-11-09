@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // 僅在生產環境強制轉向 HTTPS；本機開發環境不處理，避免 localhost 憑證問題
+  // Only force redirect to HTTPS in production environment; don't handle in local development to avoid localhost certificate issues
   if (process.env.NODE_ENV === 'production') {
     if (request.headers.get('x-forwarded-proto') === 'http') {
       const host = request.headers.get('host');

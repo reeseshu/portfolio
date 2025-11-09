@@ -1,9 +1,12 @@
 "use client";
 
 import React from "react";
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/store/store';
 
 export default function MouseTrailCanvas() {
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+  const isDark = useSelector((state: RootState) => state.theme.isDark);
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,156 +20,162 @@ export default function MouseTrailCanvas() {
     }
     const context = ctx as CanvasRenderingContext2D;
 
-    let w: number, h: number, balls: Ball[] = [];
-    const mouse: { x: number | undefined; y: number | undefined } = {
-      x: undefined,
-      y: undefined,
+    let w: number, h: number;
+    const targetMouse: { x: number; y: number } = { x: 0, y: 0 };
+    const ball = {
+      x: 0,
+      y: 0,
+      size: 0,
+      targetSize: 0,
     };
-    const rgb = [
-      "rgb(26, 188, 156)",
-      "rgb(46, 204, 113)",
-      "rgb(52, 152, 219)",
-      "rgb(155, 89, 182)",
-      "rgb(241, 196, 15)",
-      "rgb(230, 126, 34)",
-      "rgb(231, 76, 60)",
-    ];
 
     function resizeReset() {
       // canvas is defined here because we early-returned if it wasn't
       w = (canvas as HTMLCanvasElement).width = window.innerWidth;
       h = (canvas as HTMLCanvasElement).height = window.innerHeight;
+      
+      // Initialize ball with valid values
+      ball.x = w / 2;
+      ball.y = h / 2;
+      ball.size = 0;
+      ball.targetSize = 0;
+      targetMouse.x = w / 2;
+      targetMouse.y = h / 2;
     }
 
-    function drawBalls() {
-      for (let i = 0; i < balls.length; i++) {
-        balls[i].update();
-        balls[i].draw();
+    function drawBall() {
+      // Smooth interpolation for ball position
+      ball.x += (targetMouse.x - ball.x) * 0.1;
+      ball.y += (targetMouse.y - ball.y) * 0.1;
+      ball.size += (ball.targetSize - ball.size) * 0.1;
+
+      // Validate values to prevent non-finite errors
+      if (!isFinite(ball.x) || !isFinite(ball.y) || !isFinite(ball.size) || ball.size <= 0) {
+        return;
       }
+
+      // Create gradient for fade effect
+      const gradient = context.createRadialGradient(
+        ball.x, ball.y, 0,
+        ball.x, ball.y, ball.size
+      );
+      
+      if (isDark) {
+        // Dark theme: light center with smoother fade out (7% more opacity)
+        gradient.addColorStop(0, "rgba(255, 255, 255, 0.22)");
+        gradient.addColorStop(0.05, "rgba(255, 255, 255, 0.20)");
+        gradient.addColorStop(0.1, "rgba(255, 255, 255, 0.18)");
+        gradient.addColorStop(0.15, "rgba(255, 255, 255, 0.16)");
+        gradient.addColorStop(0.2, "rgba(255, 255, 255, 0.14)");
+        gradient.addColorStop(0.25, "rgba(255, 255, 255, 0.12)");
+        gradient.addColorStop(0.3, "rgba(255, 255, 255, 0.10)");
+        gradient.addColorStop(0.35, "rgba(255, 255, 255, 0.08)");
+        gradient.addColorStop(0.4, "rgba(255, 255, 255, 0.06)");
+        gradient.addColorStop(0.45, "rgba(255, 255, 255, 0.05)");
+        gradient.addColorStop(0.5, "rgba(255, 255, 255, 0.04)");
+        gradient.addColorStop(0.6, "rgba(255, 255, 255, 0.03)");
+        gradient.addColorStop(0.7, "rgba(255, 255, 255, 0.02)");
+        gradient.addColorStop(0.8, "rgba(255, 255, 255, 0.01)");
+        gradient.addColorStop(0.9, "rgba(255, 255, 255, 0.005)");
+        gradient.addColorStop(0.95, "rgba(255, 255, 255, 0.002)");
+        gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+      } else {
+        // Light theme: dark center with smoother fade out (7% more opacity)
+        gradient.addColorStop(0, "rgba(0, 0, 0, 0.22)");
+        gradient.addColorStop(0.05, "rgba(0, 0, 0, 0.20)");
+        gradient.addColorStop(0.1, "rgba(0, 0, 0, 0.18)");
+        gradient.addColorStop(0.15, "rgba(0, 0, 0, 0.16)");
+        gradient.addColorStop(0.2, "rgba(0, 0, 0, 0.14)");
+        gradient.addColorStop(0.25, "rgba(0, 0, 0, 0.12)");
+        gradient.addColorStop(0.3, "rgba(0, 0, 0, 0.10)");
+        gradient.addColorStop(0.35, "rgba(0, 0, 0, 0.08)");
+        gradient.addColorStop(0.4, "rgba(0, 0, 0, 0.06)");
+        gradient.addColorStop(0.45, "rgba(0, 0, 0, 0.05)");
+        gradient.addColorStop(0.5, "rgba(0, 0, 0, 0.04)");
+        gradient.addColorStop(0.6, "rgba(0, 0, 0, 0.03)");
+        gradient.addColorStop(0.7, "rgba(0, 0, 0, 0.02)");
+        gradient.addColorStop(0.8, "rgba(0, 0, 0, 0.01)");
+        gradient.addColorStop(0.9, "rgba(0, 0, 0, 0.005)");
+        gradient.addColorStop(0.95, "rgba(0, 0, 0, 0.002)");
+        gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+      }
+
+      context.fillStyle = gradient;
+      context.beginPath();
+      context.arc(ball.x, ball.y, ball.size, 0, Math.PI * 2);
+      context.fill();
     }
 
     function animationLoop() {
       context.clearRect(0, 0, w, h);
-      context.globalCompositeOperation = "lighter";
-      drawBalls();
-
-      const temp: Ball[] = [];
-      for (let i = 0; i < balls.length; i++) {
-        if (balls[i].time <= balls[i].ttl) {
-          temp.push(balls[i]);
-        }
-      }
-      balls = temp;
-
+      drawBall();
       requestAnimationFrame(animationLoop);
     }
 
     function mousemove(e: MouseEvent) {
-      mouse.x = e.x;
-      mouse.y = e.y;
-      for (let i = 0; i < 3; i++) {
-        balls.push(new Ball());
+      // Validate mouse coordinates
+      if (isFinite(e.clientX) && isFinite(e.clientY)) {
+        targetMouse.x = e.clientX;
+        targetMouse.y = e.clientY;
+        // Set ball size to full viewport (4x larger)
+        const minSize = Math.min(w, h);
+        ball.targetSize = minSize;
       }
     }
 
     function mouseout() {
-      mouse.x = undefined;
-      mouse.y = undefined;
+      // Hide ball when mouse leaves
+      ball.targetSize = 0;
     }
 
-    function getRandomInt(min: number, max: number) {
-      return Math.round(Math.random() * (max - min)) + min;
-    }
-
-    function easeOutQuart(x: number) {
-      return 1 - Math.pow(1 - x, 4);
-    }
-
-    class Ball {
-      start: { x: number; y: number; size: number };
-      end: { x: number; y: number };
-      x: number;
-      y: number;
-      size: number;
-      style: string;
-      time: number;
-      ttl: number;
-
-      constructor() {
-        this.start = {
-          x: (mouse.x ?? 0) + getRandomInt(-20, 20),
-          y: (mouse.y ?? 0) + getRandomInt(-20, 20),
-          size: getRandomInt(30, 40),
-        };
-        this.end = {
-          x: this.start.x + getRandomInt(-300, 300),
-          y: this.start.y + getRandomInt(-300, 300),
-        };
-
-        this.x = this.start.x;
-        this.y = this.start.y;
-        this.size = this.start.size;
-
-        this.style = rgb[getRandomInt(0, rgb.length - 1)];
-
-        this.time = 0;
-        this.ttl = 120;
-      }
-
-      draw() {
-        // progress 0 -> 1 over life
-        const progress = Math.max(0, Math.min(1, 1 - (this.ttl - this.time) / this.ttl));
-        // Fade in then out smoothly (0 -> 1 -> 0)
-        const alpha = Math.sin(progress * Math.PI);
-
-        const previousAlpha = context.globalAlpha;
-        const previousLineWidth = context.lineWidth;
-        const previousStrokeStyle = context.strokeStyle;
-
-        context.globalAlpha = alpha;
-        context.strokeStyle = this.style;
-        // Make ring stroke width proportional to size but clamped
-        context.lineWidth = Math.max(1.5, Math.min(4, this.size * 0.12));
-
-        context.beginPath();
-        context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        context.closePath();
-        context.stroke();
-
-        context.globalAlpha = previousAlpha;
-        context.lineWidth = previousLineWidth;
-        context.strokeStyle = previousStrokeStyle as string;
-      }
-
-      update() {
-        if (this.time <= this.ttl) {
-          const progress = 1 - (this.ttl - this.time) / this.ttl;
-          this.size = this.start.size * (1 - easeOutQuart(progress));
-          this.x = this.x + (this.end.x - this.x) * 0.01;
-          this.y = this.y + (this.end.y - this.y) * 0.01;
-        }
-        this.time++;
+    function mouseenter() {
+      // Show ball when mouse enters
+      if (isFinite(w) && isFinite(h) && w > 0 && h > 0) {
+        const minSize = Math.min(w, h);
+        ball.targetSize = minSize;
       }
     }
+
 
     function init() {
       resizeReset();
-      animationLoop();
+      // Start animation loop after a small delay to ensure canvas is ready
+      setTimeout(() => {
+        animationLoop();
+      }, 100);
     }
 
-    init();
+    // Initialize after canvas is mounted
+    const initTimeout = setTimeout(init, 50);
     window.addEventListener("resize", resizeReset);
     window.addEventListener("mousemove", mousemove);
     window.addEventListener("mouseout", mouseout);
+    window.addEventListener("mouseenter", mouseenter);
 
     return () => {
+      clearTimeout(initTimeout);
       window.removeEventListener("resize", resizeReset);
       window.removeEventListener("mousemove", mousemove);
       window.removeEventListener("mouseout", mouseout);
+      window.removeEventListener("mouseenter", mouseenter);
     };
-  }, []);
+  }, [isDark]);
 
-  return <canvas id="canvas" ref={canvasRef} />;
+  return (
+    <canvas 
+      id="canvas" 
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 10,
+      }}
+    />
+  );
 }
 
 

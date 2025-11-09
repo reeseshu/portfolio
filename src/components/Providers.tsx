@@ -25,8 +25,13 @@ function ContentHydrator() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch('/api/content', { cache: 'no-store' });
-        if (res.ok) {
+        // Try API route first (for development), fallback to public JSON (for static export)
+        let res = await fetch('/api/content', { cache: 'no-store' }).catch(() => null);
+        if (!res || !res.ok) {
+          // Fallback to public JSON file for static export
+          res = await fetch('/content.json', { cache: 'no-store' });
+        }
+        if (res && res.ok) {
           const data = await res.json();
           dispatch(hydrateContent(data));
         }

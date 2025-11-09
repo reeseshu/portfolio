@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { setContent } from '@/store/slices/editSlice';
 import { addSkill, updateSkill, removeSkill } from '@/store/slices/editSlice';
+import DropdownSection from './DropdownSection';
 
 const About = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="py-20 bg-white dark:bg-gray-900">
+    <section id="about" className="py-20 bg-gray-100 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
@@ -75,7 +76,7 @@ const About = () => {
                     ]
                 ).map((skill, index) => (
                   <div key={index} className="flex items-center space-x-2">
-                    <span className="text-green-500 dark:text-green-400">▹</span>
+                    <span style={{ color: '#0072b1' }}>▹</span>
                     {isEditing ? (
                       <input
                         value={skill}
@@ -106,12 +107,49 @@ const About = () => {
                 </button>
               )}
             </div>
+
+            {/* Dropdown Sections */}
+            <div className="space-y-4 mt-8">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                Learn More About Me
+              </h3>
+              
+              <div className="space-y-2">
+                <DropdownSection
+                  title="How I Started"
+                  contentKey="howIStarted"
+                  defaultContent="I began my journey in business intelligence and data analysis during my undergraduate studies, where I discovered my passion for turning raw data into actionable insights. My first real project was building automated reports for a local startup, which opened my eyes to the power of process automation and data-driven decision making."
+                  isEditing={isEditing}
+                />
+                
+                <DropdownSection
+                  title="My Goals"
+                  contentKey="myGoals"
+                  defaultContent="My primary goal is to become a leading expert in business intelligence and process automation, helping organizations make better decisions through data. I want to build innovative solutions that bridge the gap between complex data and business strategy, ultimately creating more efficient and profitable operations."
+                  isEditing={isEditing}
+                />
+                
+                <DropdownSection
+                  title="My Motivations"
+                  contentKey="myMotivations"
+                  defaultContent="I'm driven by the challenge of solving complex business problems and the satisfaction of seeing data transform into actionable insights. The idea that my work can help companies make better decisions and improve their bottom line is incredibly motivating. I love the process of turning 'why' questions into 'how' solutions."
+                  isEditing={isEditing}
+                />
+                
+                <DropdownSection
+                  title="Where I See Myself"
+                  contentKey="futureVision"
+                  defaultContent="In 3,466 days (about 9.5 years), I envision myself as a senior business intelligence leader, having built and scaled data-driven solutions for multiple organizations. I hope to have founded or co-founded a company that specializes in business process automation, and to be mentoring the next generation of data professionals."
+                  isEditing={isEditing}
+                />
+              </div>
+            </div>
           </div>
           
           {/* Image */}
           <div className="relative">
             <div className="relative w-full max-w-md mx-auto group">
-              <div className="absolute inset-0 bg-green-500 dark:bg-green-400 rounded-lg transform rotate-3 group-hover:rotate-6 transition-transform duration-300"></div>
+              <div className="absolute inset-0 rounded-lg transform rotate-3 group-hover:rotate-6 transition-transform duration-300" style={{ backgroundColor: '#0072b1' }}></div>
               <div className="relative bg-gray-200 dark:bg-gray-700 rounded-lg p-4 group-hover:shadow-xl transition-shadow duration-300">
                 <div className="aspect-square bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center">
                   <span className="text-gray-500 dark:text-gray-400 text-lg">Profile Image</span>

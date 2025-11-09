@@ -86,12 +86,12 @@ const Experience = () => {
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Where I&apos;ve Worked
           </h2>
-          <div className="w-24 h-1 bg-green-500 dark:bg-green-400 mx-auto"></div>
+          <div className="w-24 h-1 mx-auto" style={{ backgroundColor: '#0072b1' }}></div>
         </div>
 
         <div className="space-y-12">
           {experiences.map((exp: ExperienceJob, index: number) => (
-            <div key={index} className="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div key={index} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                 <div>
                   {isEditing ? (
@@ -104,13 +104,14 @@ const Experience = () => {
                       <input
                         value={exp.company}
                         onChange={(e) => onUpdateJobField(index, 'company', e.target.value)}
-                        className="mt-2 w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-green-600 dark:text-green-400 font-medium"
+                        className="mt-2 w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 font-medium"
+                        style={{ color: '#0072b1' }}
                       />
                     </>
                   ) : (
                     <>
                       <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{exp.title}</h3>
-                      <p className="text-green-500 dark:text-green-400 font-medium">{exp.company}</p>
+                      <p className="font-medium" style={{ color: '#0072b1' }}>{exp.company}</p>
                     </>
                   )}
                 </div>
@@ -118,10 +119,10 @@ const Experience = () => {
                   <input
                     value={exp.period}
                     onChange={(e) => onUpdateJobField(index, 'period', e.target.value)}
-                    className="text-gray-700 dark:text-gray-300 text-sm font-mono mt-2 md:mt-0 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 p-2 rounded-md"
+                    className="text-gray-700 dark:text-gray-300 text-sm font-['Poppins'] mt-2 md:mt-0 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 p-2 rounded-md"
                   />
                 ) : (
-                  <span className="text-gray-500 dark:text-gray-400 text-sm font-mono mt-2 md:mt-0">{exp.period}</span>
+                  <span className="text-gray-500 dark:text-gray-400 text-sm font-['Poppins'] mt-2 md:mt-0">{exp.period}</span>
                 )}
               </div>
               <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
@@ -154,13 +155,13 @@ const Experience = () => {
                 </div>
               )}
               {isEditing && (
-                <button onClick={() => onRemoveJob(index)} className="mt-4 text-red-600 hover:underline">Remove</button>
+                <button onClick={() => onRemoveJob(index)} className="mt-4 text-red-600 hover:underline font-['Poppins'] font-bold">Remove</button>
               )}
             </div>
           ))}
           {isEditing && (
             <div>
-              <button onClick={onAddJob} className="px-4 py-2 rounded-md bg-green-500 text-white">Add Job</button>
+              <button onClick={onAddJob} className="px-4 py-2 rounded-md text-white font-['Poppins'] font-bold" style={{ backgroundColor: '#0072b1' }}>Add Job</button>
             </div>
           )}
         </div>

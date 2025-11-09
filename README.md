@@ -1,50 +1,50 @@
 # Reese Shu Portfolio Clone
 
-這是一個使用現代技術堆疊複製 Reese Shu 個人作品集網站的專案。
+This is a project that replicates Reese Shu's personal portfolio website using modern technology stack.
 
-## 技術堆疊
+## Technology Stack
 
-- **Next.js** — React 框架，提供 SSR、SSG 和 App Router
-- **Tailwind CSS** — 實用優先的 CSS 框架
-- **TypeScript** — 型別安全的 JavaScript
-- **Redux Toolkit** — 狀態管理
-- **Goober** — 輕量級 CSS-in-JS 庫
-- **PWA** — 漸進式網頁應用程式
-- **Google Tag Manager** — 標籤管理
-- **Google Analytics** — 網站分析
-- **HSTS** — HTTP 嚴格傳輸安全
-- **Vercel** — 部署平台
+- **Next.js** — React framework providing SSR, SSG and App Router
+- **Tailwind CSS** — Utility-first CSS framework
+- **TypeScript** — Type-safe JavaScript
+- **Redux Toolkit** — State management
+- **Goober** — Lightweight CSS-in-JS library
+- **PWA** — Progressive Web Application
+- **Google Tag Manager** — Tag management
+- **Google Analytics** — Website analytics
+- **HSTS** — HTTP Strict Transport Security
+- **Vercel** — Deployment platform
 
-## 功能特色
+## Features
 
-- ✅ 響應式設計
-- ✅ 深色/淺色主題切換
-- ✅ 平滑滾動導航
-- ✅ 動畫效果
-- ✅ PWA 支援
-- ✅ SEO 優化
-- ✅ 安全標頭
-- ✅ HTTPS 強制重定向
-- ✅ 效能優化
-- ✅ 無障礙設計
+- ✅ Responsive design
+- ✅ Dark/light theme toggle
+- ✅ Smooth scroll navigation
+- ✅ Animation effects
+- ✅ PWA support
+- ✅ SEO optimization
+- ✅ Security headers
+- ✅ HTTPS force redirect
+- ✅ Performance optimization
+- ✅ Accessibility design
 
-## 快速開始
+## Quick Start
 
-### 安裝依賴
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 設定環境變數
+### Environment Variables Setup
 
-複製 `env.example` 到 `.env.local` 並填入你的設定：
+Copy `env.example` to `.env.local` and fill in your settings:
 
 ```bash
 cp env.example .env.local
 ```
 
-編輯 `.env.local`：
+Edit `.env.local`:
 
 ```env
 NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
@@ -54,121 +54,121 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.com
 NEXT_PUBLIC_FORCE_HTTPS=true
 ```
 
-**重要**：`NEXT_PUBLIC_SITE_URL` 必須使用 HTTPS 協議，這將用於 HTTPS 重定向功能。
+**Important**: `NEXT_PUBLIC_SITE_URL` must use HTTPS protocol, which will be used for HTTPS redirect functionality.
 
-### 開發模式
+### Development Mode
 
 ```bash
 npm run dev
 ```
 
-開啟 [http://localhost:3000](http://localhost:3000) 查看結果。
+Open [http://localhost:3000](http://localhost:3000) to view the result.
 
-### 建置生產版本
+### Build Production Version
 
 ```bash
 npm run build
 npm start
 ```
 
-## 部署到 Vercel
+## Deploy to Vercel
 
-1. 將專案推送到 GitHub
-2. 在 [Vercel](https://vercel.com) 匯入專案
-3. 設定環境變數
-4. 部署
+1. Push the project to GitHub
+2. Import the project in [Vercel](https://vercel.com)
+3. Set environment variables
+4. Deploy
 
-或使用 Vercel CLI：
+Or use Vercel CLI:
 
 ```bash
 npm i -g vercel
 vercel
 ```
 
-## 專案結構
+## Project Structure
 
 ```
 src/
 ├── app/                 # Next.js App Router
-│   ├── layout.tsx       # 根佈局
-│   ├── page.tsx         # 首頁
-│   └── globals.css      # 全域樣式
-├── components/          # React 組件
-│   ├── Header.tsx      # 導航列
-│   ├── Hero.tsx         # 首頁橫幅
-│   ├── About.tsx        # 關於我
-│   ├── Experience.tsx   # 工作經驗
-│   ├── Work.tsx         # 作品集
-│   ├── Contact.tsx      # 聯絡方式
-│   ├── Footer.tsx       # 頁尾
+│   ├── layout.tsx       # Root layout
+│   ├── page.tsx         # Home page
+│   └── globals.css      # Global styles
+├── components/          # React components
+│   ├── Header.tsx      # Navigation bar
+│   ├── Hero.tsx         # Home banner
+│   ├── About.tsx        # About me
+│   ├── Experience.tsx   # Work experience
+│   ├── Work.tsx         # Portfolio
+│   ├── Contact.tsx      # Contact
+│   ├── Footer.tsx       # Footer
 │   ├── Providers.tsx    # Redux Provider
-│   ├── ThemeWrapper.tsx # 主題包裝器
+│   ├── ThemeWrapper.tsx # Theme wrapper
 │   └── GTM.tsx          # Google Tag Manager
-└── store/               # Redux 狀態管理
+└── store/               # Redux state management
     ├── store.ts         # Redux store
     └── slices/          # Redux slices
         ├── themeSlice.ts
         └── navigationSlice.ts
 ```
 
-## 自訂
+## Customization
 
-### 修改內容
+### Modify Content
 
-編輯各個組件檔案來修改內容：
+Edit individual component files to modify content:
 
-- `src/components/Hero.tsx` - 首頁內容
-- `src/components/About.tsx` - 關於我內容
-- `src/components/Experience.tsx` - 工作經驗
-- `src/components/Work.tsx` - 作品集專案
+- `src/components/Hero.tsx` - Home page content
+- `src/components/About.tsx` - About me content
+- `src/components/Experience.tsx` - Work experience
+- `src/components/Work.tsx` - Portfolio projects
 
-### 修改樣式
+### Modify Styles
 
-- 編輯 `tailwind.config.ts` 來自訂主題
-- 修改 `src/app/globals.css` 來添加自訂樣式
-- 使用 Goober 在組件中添加動態樣式
+- Edit `tailwind.config.ts` to customize theme
+- Modify `src/app/globals.css` to add custom styles
+- Use Goober to add dynamic styles in components
 
-### 修改顏色主題
+### Modify Color Theme
 
-在 `tailwind.config.ts` 中修改 `colors` 設定：
+Modify the `colors` settings in `tailwind.config.ts`:
 
 ```typescript
 colors: {
   primary: {
-    // 你的主要顏色
+    // Your primary colors
   }
 }
 ```
 
-## 效能優化
+## Performance Optimization
 
-- 使用 Next.js Image 組件優化圖片
-- 實作 PWA 快取策略
-- 使用 React.memo 和 useMemo 優化渲染
-- 實作虛擬滾動（如需要）
+- Use Next.js Image component to optimize images
+- Implement PWA caching strategies
+- Use React.memo and useMemo to optimize rendering
+- Implement virtual scrolling (if needed)
 
-## HTTPS 重定向設定
+## HTTPS Redirect Configuration
 
-專案已配置自動將所有 HTTP 請求重定向到 HTTPS：
+The project is configured to automatically redirect all HTTP requests to HTTPS:
 
-### 重定向機制
+### Redirect Mechanism
 
-1. **Next.js 中間件** (`src/middleware.ts`)
-   - 檢查 `x-forwarded-proto` 標頭
-   - 自動重定向 HTTP 請求到 HTTPS
-   - 使用 301 永久重定向
+1. **Next.js Middleware** (`src/middleware.ts`)
+   - Check `x-forwarded-proto` header
+   - Automatically redirect HTTP requests to HTTPS
+   - Use 301 permanent redirect
 
-2. **Next.js 配置** (`next.config.js`)
-   - 基於環境變數的動態重定向
-   - 支援自定義域名
+2. **Next.js Configuration** (`next.config.js`)
+   - Dynamic redirect based on environment variables
+   - Support for custom domains
 
-3. **Vercel 配置** (`vercel.json`)
-   - 平台層級的重定向設定
-   - 使用 `$VERCEL_URL` 變數
+3. **Vercel Configuration** (`vercel.json`)
+   - Platform-level redirect settings
+   - Use `$VERCEL_URL` variable
 
-### 安全標頭
+### Security Headers
 
-專案包含以下安全標頭：
+The project includes the following security headers:
 
 - HSTS (HTTP Strict Transport Security)
 - X-Frame-Options
@@ -177,21 +177,21 @@ colors: {
 - Permissions-Policy
 - Content-Security-Policy (upgrade-insecure-requests)
 
-## 瀏覽器支援
+## Browser Support
 
-- Chrome (最新)
-- Firefox (最新)
-- Safari (最新)
-- Edge (最新)
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
-## 授權
+## License
 
 MIT License
 
-## 貢獻
+## Contributing
 
-歡迎提交 Issue 和 Pull Request！
+Welcome to submit Issues and Pull Requests!
 
-## 聯絡
+## Contact
 
-如有問題，請透過 GitHub Issues 聯絡。
+If you have any questions, please contact through GitHub Issues.

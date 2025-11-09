@@ -1,8 +1,54 @@
 @import "tailwindcss";
 
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 0;
+}
+
+/* Custom scroll behavior for section barriers */
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Section transition effects */
+.section-transition {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Scroll tension effects */
+.scroll-tension {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Smooth section boundaries */
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Enhanced scroll behavior */
+html {
+  scroll-snap-type: y mandatory;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f3f4f6;
+  --foreground: #111827;
+  --bg-primary: #f3f4f6;
+  --text-primary: #111827;
+  --bg-secondary: #ffffff;
+  --text-secondary: #374151;
+}
+
+.dark {
+  --background: #111827;
+  --foreground: #f9fafb;
+  --bg-primary: #111827;
+  --text-primary: #f9fafb;
+  --bg-secondary: #1f2937;
+  --text-secondary: #d1d5db;
 }
 
 @theme inline {
@@ -12,17 +58,21 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 /* Custom cursor styles for non-touch devices */
@@ -50,12 +100,243 @@ body {
   margin: 20px 0;
   padding: 10px 20px;
   text-decoration: none;
-  color: #bbce15;
+  color: #0072b1;
   font-family: sans-serif;
   font-size: 14px;
   font-weight: 600;
   transition: .5s;
   z-index: 1;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced fade-in animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Section background transitions with blurred edges */
+.section-bg-transition {
+  transition: background-color 0.8s ease-in-out, background-image 0.8s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gradient backgrounds for smooth transitions */
+.section-hero {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+}
+
+.dark .section-hero {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+}
+
+.section-about {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.dark .section-about {
+  background: linear-gradient(135deg, #111827 0%, #0f1419 100%);
+}
+
+.section-experience {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+}
+
+.dark .section-experience {
+  background: linear-gradient(135deg, #111827 0%, #0f1419 100%);
+}
+
+.section-projects {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.dark .section-projects {
+  background: linear-gradient(135deg, #111827 0%, #0f1419 100%);
+}
+
+.section-contact {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+}
+
+.dark .section-contact {
+  background: linear-gradient(135deg, #111827 0%, #0f1419 100%);
+}
+
+/* Blurred edge transitions between sections */
+.section-fade {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-fade::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: linear-gradient(to bottom, 
+    rgba(243, 244, 246, 0.9) 0%, 
+    rgba(243, 244, 246, 0.6) 20%, 
+    rgba(243, 244, 246, 0.3) 50%, 
+    rgba(243, 244, 246, 0.1) 80%, 
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.8s ease-in-out;
+  filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.dark .section-fade::before {
+  background: linear-gradient(to bottom, 
+    rgba(17, 24, 39, 0.9) 0%, 
+    rgba(17, 24, 39, 0.6) 20%, 
+    rgba(17, 24, 39, 0.3) 50%, 
+    rgba(17, 24, 39, 0.1) 80%, 
+    transparent 100%
+  );
+}
+
+.section-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: linear-gradient(to top, 
+    rgba(243, 244, 246, 0.9) 0%, 
+    rgba(243, 244, 246, 0.6) 20%, 
+    rgba(243, 244, 246, 0.3) 50%, 
+    rgba(243, 244, 246, 0.1) 80%, 
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.8s ease-in-out;
+  filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.dark .section-fade::after {
+  background: linear-gradient(to top, 
+    rgba(17, 24, 39, 0.9) 0%, 
+    rgba(17, 24, 39, 0.6) 20%, 
+    rgba(17, 24, 39, 0.3) 50%, 
+    rgba(17, 24, 39, 0.1) 80%, 
+    transparent 100%
+  );
+}
+
+/* Enhanced section boundary blending */
+.section-blend {
+  background-blend-mode: multiply;
+  transition: background-blend-mode 0.8s ease-in-out;
+  mix-blend-mode: normal;
+}
+
+/* Smooth color blending between sections */
+.section-bg-transition {
+  will-change: background-color, background-image;
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Enhanced gradient transitions with blur */
+.section-hero {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.section-about {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.section-experience {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.section-projects {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.section-contact {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Additional blur overlay for better color blending */
+.section-bg-transition::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  filter: blur(1px);
+  opacity: 0.3;
+  z-index: -1;
+  transition: opacity 0.8s ease-in-out;
+}
+
+/* Enhanced color mixing for better transitions */
+.section-bg-transition:hover::before {
+  opacity: 0.5;
+}
+
+/* Section overlap effect */
+section {
+  position: relative;
+  z-index: 1;
+}
+
+section:not(:first-child) {
+  margin-top: -50px;
+  padding-top: 50px;
 }
 .nav-fancy a::before {
   content: '';
@@ -93,4 +374,10 @@ body {
 .nav-fancy a:hover::after {
   transform: scaleY(1);
   opacity: 1;
+}
+
+/* Hide only the challenge iframe, but keep the widget visible */
+.cf-challenge,
+iframe[title="Widget containing a Cloudflare security challenge"] {
+  display: none !important;
 }

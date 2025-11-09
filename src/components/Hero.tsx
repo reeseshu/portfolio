@@ -6,8 +6,14 @@ import { useSelector } from 'react-redux';
 import { setActiveSection } from '@/store/slices/navigationSlice';
 import { setContent } from '@/store/slices/editSlice';
 import type { RootState } from '@/store/store';
+import MagneticButton from './MagneticButton';
+import TypewriterText from './RotatingText';
 
-const Hero = () => {
+interface HeroProps {
+  onConfettiTrigger?: () => void;
+}
+
+const Hero = ({ onConfettiTrigger }: HeroProps) => {
   const dispatch = useDispatch();
   const { isEditing, content } = useSelector((state: RootState) => state.edit);
 
@@ -15,8 +21,13 @@ const Hero = () => {
     dispatch(setActiveSection('home'));
   }, [dispatch]);
 
+  const handleButtonClick = () => {
+    console.log('Button clicked, triggering confetti!');
+    onConfettiTrigger?.();
+  };
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+    <section id="home" className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-6">
           {/* Greeting */}
@@ -24,10 +35,11 @@ const Hero = () => {
             <input
               value={content.heroGreeting || 'Hi, my name is'}
               onChange={(e) => dispatch(setContent({ key: 'heroGreeting', value: e.target.value }))}
-              className="w-full max-w-xs mx-auto text-center bg-gray-100 dark:bg-gray-800 text-green-500 dark:text-green-400 text-lg font-mono rounded-md p-2 border border-gray-300 dark:border-gray-700"
+              className="w-full max-w-xs mx-auto text-center bg-gray-100 dark:bg-gray-800 text-lg font-['Poppins'] rounded-md p-2 border border-gray-300 dark:border-gray-700"
+              style={{ color: '#2c94d0' }}
             />
           ) : (
-            <p className="text-green-500 dark:text-green-400 text-lg font-mono">
+            <p className="text-lg font-['Poppins']" style={{ color: '#2c94d0' }}>
               {content.heroGreeting || 'Hi, my name is'}
             </p>
           )}
@@ -45,7 +57,7 @@ const Hero = () => {
             </h1>
           )}
           
-          {/* Subtitle */}
+          {/* Subtitle with Typewriter Effect */}
           {isEditing ? (
             <input
               value={content.heroSubtitle || 'I build things for the web.'}
@@ -54,7 +66,23 @@ const Hero = () => {
             />
           ) : (
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-600 dark:text-gray-300">
-              {content.heroSubtitle || 'I build things for the web.'}
+              <TypewriterText
+                fixedText="I'm a "
+                rotatingTexts={[
+                  'Maniacal Builder',
+                  'Excel Architect',
+                  'PowerPoint Strategist',
+                  'Financial Modeler',
+                  'Process Automator',
+                  'Workflow Automator',
+                  '"Why" Asker',
+                  'CRM Operator'
+                ]}
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-600 dark:text-gray-300"
+                typingSpeed={80}
+                deletingSpeed={40}
+                pauseTime={1500}
+              />
             </h2>
           )}
           
@@ -74,12 +102,13 @@ const Hero = () => {
           
           {/* CTA Button */}
           <div className="pt-8">
-            <a
+            <MagneticButton
               href="#work"
-              className="inline-block border border-green-500 dark:border-green-400 text-green-500 dark:text-green-400 px-8 py-4 text-lg font-mono hover:bg-green-500 hover:text-white dark:hover:bg-green-400 dark:hover:text-gray-900 transition-all duration-300 transform hover:scale-105"
+              className="rounded-md"
+              onClick={handleButtonClick}
             >
               Check out my work!
-            </a>
+            </MagneticButton>
           </div>
         </div>
       </div>

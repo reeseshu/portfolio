@@ -5,7 +5,7 @@ interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  isDark: true,
+  isDark: false,
 };
 
 const themeSlice = createSlice({

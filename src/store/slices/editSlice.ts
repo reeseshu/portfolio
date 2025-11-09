@@ -8,7 +8,11 @@ export type SectionKey =
   | 'heroGreeting'
   | 'heroName'
   | 'heroSubtitle'
-  | 'heroDescription';
+  | 'heroDescription'
+  | 'howIStarted'
+  | 'myGoals'
+  | 'myMotivations'
+  | 'futureVision';
 
 export type WorkProject = {
   title: string;
@@ -40,6 +44,10 @@ type EditableContent = {
   heroDescription: string;
   workProjects: WorkProject[];
   experienceJobs: ExperienceJob[];
+  howIStarted: string;
+  myGoals: string;
+  myMotivations: string;
+  futureVision: string;
 };
 
 type EditState = {
@@ -63,6 +71,10 @@ const initialState: EditState = {
     heroDescription: '',
     workProjects: [],
     experienceJobs: [],
+    howIStarted: '',
+    myGoals: '',
+    myMotivations: '',
+    futureVision: '',
   },
 };
 
