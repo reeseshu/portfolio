@@ -29,15 +29,18 @@ function ContentHydrator() {
         let res = await fetch('/api/content', { cache: 'no-store' }).catch(() => null);
         if (!res || !res.ok) {
           // Fallback to public JSON file for static export
-          // Use basePath-aware path
+          // Use basePath-aware path, but in dev mode use root path
           const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-          res = await fetch(`${basePath}/content.json`, { cache: 'no-store' });
+          const contentPath = `${basePath}/content.json`.replace('//', '/');
+          res = await fetch(contentPath, { cache: 'no-store' }).catch(() => null);
         }
         if (res && res.ok) {
           const data = await res.json();
           dispatch(hydrateContent(data));
         }
-      } catch {}
+      } catch (error) {
+        console.error('Failed to load content:', error);
+      }
     }
     load();
   }, [dispatch]);

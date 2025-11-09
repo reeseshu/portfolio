@@ -2,6 +2,14 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  // Skip middleware if static export is enabled (middleware doesn't work with static export)
+  // In dev mode (NODE_ENV === 'development'), static export is disabled, so middleware works fine
+  const isStaticExport = process.env.NODE_ENV === 'production' && process.env.STATIC_EXPORT !== 'false';
+  
+  if (isStaticExport) {
+    return NextResponse.next();
+  }
+
   // Only force redirect to HTTPS in production environment; don't handle in local development to avoid localhost certificate issues
   if (process.env.NODE_ENV === 'production') {
     if (request.headers.get('x-forwarded-proto') === 'http') {
