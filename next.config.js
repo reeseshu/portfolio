@@ -4,13 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Disable server-side features for static export
-  async redirects() {
-    return [];
-  },
-  async headers() {
-    return [];
-  },
+  // Skip API routes during static export - they will be ignored automatically
+  trailingSlash: true,
 };
 
 module.exports = nextConfig;
