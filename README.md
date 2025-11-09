@@ -1,6 +1,6 @@
-# Reese Shu Portfolio Clone
+# Reese Shu Portfolio
 
-This is a project that replicates Reese Shu's personal portfolio website using modern technology stack.
+This is Reese Shu's personal portfolio website built with modern technology stack.
 
 ## Technology Stack
 
@@ -71,7 +71,18 @@ npm run build
 npm start
 ```
 
-## Deploy to Vercel
+## Deploy to GitHub Pages
+
+This project is configured for GitHub Pages deployment using GitHub Actions:
+
+1. Push the project to GitHub
+2. Go to repository Settings → Pages
+3. Under "Source", select "GitHub Actions"
+4. The GitHub Actions workflow will automatically build and deploy on push to main branch
+
+The site will be available at: `https://reeseshu.github.io/portfolio/`
+
+### Deploy to Vercel (Alternative)
 
 1. Push the project to GitHub
 2. Import the project in [Vercel](https://vercel.com)
