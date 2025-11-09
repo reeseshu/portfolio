@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  basePath: '/portfolio',
+  assetPrefix: '/portfolio',
   images: {
     unoptimized: true,
   },
-  // Skip API routes during static export - they will be ignored automatically
   trailingSlash: true,
 };
 
