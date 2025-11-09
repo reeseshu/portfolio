@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "prebuild": "node scripts/prepare-build.js",
     "build": "next build",
+    "postbuild": "node scripts/prepare-build.js",
     "export": "next build",
     "start": "next start",
     "lint": "eslint"
